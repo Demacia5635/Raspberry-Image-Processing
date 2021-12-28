@@ -14,7 +14,7 @@ camera_height = 1080
 camera_fps = 30
 
 def update_vars() -> None:
-    global camera_width, camera_height, camera_fps, camera_brightness, camera_contrast, camera_saturation, camera_hue, camera_exposure
+    global camera_width, camera_height, camera_fps
 
     min_hsv[0] = smart_dashboard.getNumber('vision_min_h', min_hsv[0])
     min_hsv[1] = smart_dashboard.getNumber('vision_min_s', min_hsv[1])
