@@ -10,6 +10,11 @@ def angle(px, x):
 
 def distance(beta):  # in
     return networktables_handler.ball_radius / math.sin(beta)
+    
+def output_vision(distance : float, angle : float) -> None:
+    if (networktables_handler.smart_dashboard):
+        networktables_handler.smart_dashboard.putNumber('vision_distance', distance)
+        networktables_handler.smart_dashboard.putNumber('vision_angle', angle)
 
 def process_image(image : np.ndarray) -> None:
 
@@ -53,8 +58,3 @@ def process_image(image : np.ndarray) -> None:
                 #else:
                     #radius *= 1.15
                     #cv2.circle(oldimage, (int(x), int(y)), int(radius), (0, 0, 255), 3)
-
-def output_vision(distance : float, angle : float) -> None:
-    if (networktables_handler.smart_dashboard):
-        networktables_handler.smart_dashboard.putNumber('vision_distance', distance)
-        networktables_handler.smart_dashboard.putNumber('vision_angle', angle)
