@@ -1,15 +1,20 @@
+#!/usr/bin/env python3
+
+from threading import Thread
+from typing import Iterable
+
 import cv2
 from flask import Flask, Response
+from numpy import ndarray
+
 import networktables_handler
 import processing
-from numpy import ndarray
-from threading import Thread
 
 app = Flask(__name__)
 
 camera = cv2.VideoCapture(0)
 
-def gen_frames() -> None:
+def gen_frames() -> Iterable[bytes]:
     frame : ndarray = None
     while True:
 
@@ -40,8 +45,9 @@ def start():
     print('Started!')
 
 if __name__ == "__main__":
-    if networktables_handler.connected_to_robot():
-        networktables_handler.connect()
+    if not camera.read()[0]:
+        exit()
+    networktables_handler.start_connection()
     update_camera_settings()
     thread = Thread(target=start)
     thread.start()
